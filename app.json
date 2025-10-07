@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "calculadora-app",
-    "slug": "calculadora-app",
+    "slug": "calculadoraapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -43,6 +43,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "00e8f240-1026-4e9f-8cc4-5f79d64cf727"
+      }
+    },
+    "owner": "2goddie7"
   }
 }

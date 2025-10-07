@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Colors } from "@/constants/theme";
+import Display from "../components/Display";
+import ButtonRow from "../components/ButtonRow";
 
 const CalculatorApp = () => {
   const [input, setInput] = useState("0");
@@ -39,7 +41,6 @@ const CalculatorApp = () => {
       return;
     }
 
-    // Números y punto decimal
     setInput((prev) => (prev === "0" ? value : prev + value));
   };
 
@@ -78,34 +79,10 @@ const CalculatorApp = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.displayContainer}>
-        <Text style={styles.prevText}>
-          {prevInput} {operator}
-        </Text>
-        <Text style={styles.displayText}>{input}</Text>
-      </View>
-
+      <Display prevInput={prevInput} operator={operator} input={input} />
       <View style={styles.buttonsContainer}>
         {buttons.map((row, i) => (
-          <View key={i} style={styles.row}>
-            {row.map((btn) => (
-              <TouchableOpacity
-                key={btn}
-                style={[
-                  styles.button,
-                  btn === "=" || ["÷", "x", "-", "+"].includes(btn)
-                    ? styles.orangeButton
-                    : btn === "C" || btn === "+/-" || btn === "del"
-                    ? styles.grayButton
-                    : styles.darkButton,
-                  btn === "0" ? { flex: 2 } : {},
-                ]}
-                onPress={() => handlePress(btn)}
-              >
-                <Text style={styles.buttonText}>{btn}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <ButtonRow key={i} row={row} handlePress={handlePress} />
         ))}
       </View>
     </View>
@@ -121,48 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: 20,
   },
-  displayContainer: {
-    marginBottom: 20,
-    alignItems: "flex-end",
-  },
-  prevText: {
-    color: Colors.lightGray,
-    fontSize: 25,
-  },
-  displayText: {
-    color: Colors.textPrimary,
-    fontSize: 60,
-    fontWeight: "300",
-  },
   buttonsContainer: {
     marginBottom: 30,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 8,
-  },
-  button: {
-    backgroundColor: Colors.darkGray,
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 5,
-  },
-  darkButton: {
-    backgroundColor: Colors.darkGray,
-  },
-  grayButton: {
-    backgroundColor: Colors.lightGray,
-  },
-  orangeButton: {
-    backgroundColor: Colors.orange,
-  },
-  buttonText: {
-    color: Colors.textPrimary,
-    fontSize: 28,
-    fontWeight: "500",
   },
 });
